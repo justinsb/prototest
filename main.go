@@ -111,6 +111,10 @@ func run(ctx context.Context) error {
 		return err
 	}
 
+	if err := checkOldProto(&adapter{msg: &in}, &adapter{msg: &out}); err != nil {
+		return err
+	}
+
 	if diff := cmp.Diff(in, out); diff != "" {
 		return fmt.Errorf("got a diff: %v", diff)
 	}
